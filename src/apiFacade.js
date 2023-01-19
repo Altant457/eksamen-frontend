@@ -7,6 +7,20 @@ function handleHttpErrors(res) {
   return res.json();
 }
 
+const handleErrors = (err, setErrorMessage) => {
+  if(err.status) {
+    err.fullError.then(e => {
+      console.error(e.message)
+      if (setErrorMessage) {
+        setErrorMessage(err.code + ": " + err.message)
+      }
+    })
+  } else {
+    console.log("Network Error")
+    console.error(err)
+  }
+}
+
 function apiFacade() {
   /* Insert utility-methods from a later step (d) here (REMEMBER to uncomment in the returned object when you do)*/
   const setToken = (token) => {
@@ -35,17 +49,17 @@ function apiFacade() {
         }
     })
   }
-  
- 
 
-  const login = (user, password) => {
+  const login = async (user, password) => {
     const opts = makeOptions("POST", true, {username: user, password: password})
-    return fetch(BASE_URL + "/login", opts)
-      .then(handleHttpErrors)
-      .then(res => {
-        document.querySelector("#welcomeUser").innerHTML = `Welcome, ${user}`
-        setToken(res.token);
-      })
+    try {
+      const res = await fetch(BASE_URL + "/login", opts)
+      const data = await handleHttpErrors(res)
+      document.querySelector("#welcomeUser").innerHTML = `Welcome, ${user}`
+      setToken(data.token)
+    } catch(err) {
+
+    }
   }
 
   const createUser = (user, password, rPassword) => {
@@ -54,10 +68,17 @@ function apiFacade() {
         .then(handleHttpErrors)
   }
 
-  const fetchData = () => {
-    const opts = makeOptions("GET", true)
-    return fetch(BASE_URL + "/info/user", opts).then(handleHttpErrors)
+  const fetchData = async (endpoint, updateAction, method, body, setErrorMessage) => {
+    const opts = makeOptions(method, true, body)
+    try {
+      const res = await fetch(BASE_URL + endpoint, opts)
+      const data = await handleHttpErrors(res)
+      return updateAction(data)
+    } catch(err) {
+      handleErrors(err, setErrorMessage)
+    }
   }
+
   const makeOptions= (method, addToken, body) => {
     const opts = {
       method: method,
