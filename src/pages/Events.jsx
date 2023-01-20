@@ -16,7 +16,7 @@ const Events = () => {
   return (
       <>
         {events.length !== 0 ?
-            <Accordion defaultActiveKey="0">
+            <Accordion>
               {events.map(event => (
                   <Accordion.Item key={event.id} eventKey={event.id}>
                     <Accordion.Header>

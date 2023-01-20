@@ -7,6 +7,7 @@ import facade from "./apiFacade";
 import Header from "./components/Header.jsx";
 import SignUp from "./components/SignUp.jsx";
 import Events from "./pages/Events.jsx";
+import Admin from "./pages/Admin.jsx";
 
 function App() {
 
@@ -20,10 +21,11 @@ function App() {
         />
         <Header/>
         <Routes>
-          <Route path="" element={<Home/>}/>
-          <Route path="/signup" element={<SignUp/>}/>
+          <Route path="" element={<Home />}/>
+          <Route path="/signup" element={<SignUp />}/>
           <Route path="/events" element={<Events />}/>
-          <Route path="*" element={<h1>Page Not Found !!!!</h1>}/>
+          <Route path="/admin" element={<Admin />}/>
+          <Route path="*" element={<h1>Page Not Found !!!!</h1>} />
         </Routes>
       </>
   );
