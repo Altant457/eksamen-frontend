@@ -6,28 +6,23 @@ import Contact from "./pages/Contact.jsx";
 import facade from "./apiFacade";
 import Header from "./components/Header.jsx";
 import SignUp from "./components/SignUp.jsx";
-import Pokemon from "./pages/Pokemon.jsx";
+import Events from "./pages/Events.jsx";
 
 function App() {
 
-  const [loggedIn, setLoggedIn] = useState(false)
-
-  const obj = {
-    name: "TestName",
-    street: "TestStreet",
-    town: "TestTown",
-    country: "TestCountry",
-  }
-
   return (
       <>
-        <Header setLoggedIn={setLoggedIn} loggedIn={loggedIn}/>
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+            integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+            crossOrigin="anonymous"
+        />
+        <Header/>
         <Routes>
           <Route path="" element={<Home/>}/>
-          <Route path="/search" element={<Search/>}/>
-          <Route path="/contact" element={<Contact address={obj}/>}/>
-          <Route path="/signup" element={<SignUp setLoggedIn={setLoggedIn}/>}/>
-          <Route path="/pokemon" element={<Pokemon/>}/>
+          <Route path="/signup" element={<SignUp/>}/>
+          <Route path="/events" element={<Events />}/>
           <Route path="*" element={<h1>Page Not Found !!!!</h1>}/>
         </Routes>
       </>

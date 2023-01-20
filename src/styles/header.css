@@ -15,27 +15,34 @@ body {
     justify-content: space-between;
 }
 .topnavLeft {
-    
+    display: flex;
+    flex-direction: row;
+    margin-left: 3%;
 }
-.topnavLeft p {
+.topnavLeft a {
+    text-decoration: none;
     color: white;
-    font-size: 30px;
-    font-weight: 600;
-    padding-left: 50px;
-
+    overflow: hidden;
+    position: relative;
+}
+.topnavLeft a:hover {
+    align-self: center;
+    height: 100%;
+    background-color: green;
+}
+.topnavLeft a.active {
+    background-color: green;
 }
 .topnavMid {
    display: flex;
    flex-direction: row;
    gap: 100px
-    
 }
 .topnavMid a {
     text-decoration: none;
     color: white;
     overflow: hidden;
     position: relative;
-
 }
 .topnavMid a:hover {
     align-self: center;

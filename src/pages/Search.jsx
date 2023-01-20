@@ -3,7 +3,6 @@ import React, {useRef} from 'react';
 function Search(props) {
 
     const inputRef = useRef();
-    console.log(inputRef.current)
 
     return (
         <div>

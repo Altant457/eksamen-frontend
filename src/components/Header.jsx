@@ -3,38 +3,50 @@ import {NavLink} from "react-router-dom";
 import Login from "./Login.jsx";
 import LoggedIn from "./LoggedIn.jsx";
 import "../styles/header.css";
+import facade from "../apiFacade.js";
 
 
+function Header({setErrorMsg}) {
 
-function Header({setErrorMsg, loggedIn, setLoggedIn}) {
 
+  return (
+      <nav className="topnav">
 
-    return (
-        <nav className="topnav">
+        <div className="topnavLeft">
+          <NavLink to="/"><i className="fa fa-fw fa-home"></i> Home</NavLink>
+        </div>
 
-            <div className="topnavLeft">
-                <p id="welcomeUser">Welcome</p>
-            </div>
+        <div className="topnavMid">
+          {facade.isLoggedIn() ? (
+              <>
+                <NavLink to="/events"><i className="fa fa-fw fa-envelope"></i> Events</NavLink>
+                {facade.hasUserAccess("admin") ? (
+                    <>
+                      <NavLink to="/admin"><i className="fa fa-fw fa-envelope"></i> Admin</NavLink>
+                    </>
+                ) : (<></>)}
+              </>
+          ) : (<></>)}
+        </div>
 
-            <div className="topnavMid">
-                <NavLink className="" to="/"><i className="fa fa-fw fa-home"></i> Home</NavLink>
-                <NavLink to="/search"><i className="fa fa-fw fa-search"></i> Search</NavLink>
-                <NavLink to="/contact"><i className="fa fa-fw fa-envelope"></i> Contact</NavLink>
-            </div>
+        <div className="topnavRight">
+          {!facade.isLoggedIn() ?
+              (
+                  <>
+                    <Login setErrorMsg={setErrorMsg}/>
+                    <NavLink to="/signup">
+                      <button className="signUp">Sign up</button>
+                    </NavLink>
+                  </>
+              ) :
+              (<div>
+                <LoggedIn />
+              </div>)}
 
-            <div className="topnavRight">
-                {!loggedIn ? (<Login setLoggedIn={setLoggedIn} setErrorMsg={setErrorMsg}  />) :
-                    (<div>
-                        <LoggedIn setLoggedIn={setLoggedIn}/>
-                    </div>)}
-                <NavLink to="/signup">
-                    <button className='signUp'>Sign up</button>
-                </NavLink>
-             
-            </div>
+        </div>
 
-        </nav>
-    );
+      </nav>
+  );
 }
 
 export default Header;

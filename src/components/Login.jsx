@@ -3,7 +3,7 @@ import facade from "../apiFacade.js";
 import SignUp from "./SignUp.jsx";
 import {Link} from "react-router-dom";
 
-function Login({setLoggedIn, setErrorMsg}) {
+function Login({setErrorMsg}) {
     const init = {username: "", password: ""};
     const [loginCredentials, setLoginCredentials] = useState(init);
 
@@ -13,8 +13,9 @@ function Login({setLoggedIn, setErrorMsg}) {
     }
 
     const login = (user, pass) => {
-        facade.login(user, pass)
-            .then(res => setLoggedIn(true))
+        facade.login(user, pass).then(() => {
+
+        })
     }
 
     const onChange = (evt) => {
